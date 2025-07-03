@@ -37,7 +37,7 @@ fun CoffeeGhost(
 
     val offsetY by infiniteTransition.animateValue(
         initialValue = 0.dp,
-        targetValue = (-12).dp,
+        targetValue = (-10).dp,
         typeConverter = Dp.VectorConverter,
         animationSpec = infiniteRepeatable(
             animation = tween(1500, easing = LinearEasing),
@@ -65,7 +65,6 @@ fun CoffeeGhost(
             )
             Box(
                 modifier = Modifier
-                    .background(Color.White)
                     .fillMaxSize()
             ){
                 Image(
