@@ -2,6 +2,7 @@ package com.caffeine.presentation.components
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -28,6 +29,7 @@ import com.caffeine.ui.theme.white
 fun CaffeineButton(
     title: String,
     icon: Int,
+    onClick: () -> Unit,
     modifier: Modifier = Modifier,
 ){
     Box(
@@ -35,6 +37,7 @@ fun CaffeineButton(
             .height(56.dp)
             .clip(RoundedCornerShape(100.dp))
             .background(black)
+            .clickable { onClick() }
     ){
         Row(
             modifier = Modifier.align(Alignment.Center)
@@ -63,21 +66,25 @@ private fun Preview(){
     Column {
         CaffeineButton(
             title = "continue",
-            icon = R.drawable.ic_arrow
+            icon = R.drawable.ic_arrow,
+            {}
         )
         CaffeineButton(
             title = "brign my coffee",
             icon = R.drawable.ic_coffee_mag,
+            {},
             modifier = Modifier.padding(vertical = 16.dp)
         )
         CaffeineButton(
             title = "Take snack",
             icon = R.drawable.ic_arrow,
+            {},
             modifier = Modifier.padding(vertical = 16.dp)
         )
         CaffeineButton(
             title = "Thank youuu",
-            icon = R.drawable.ic_arrow
+            icon = R.drawable.ic_arrow,
+            {}
         )
     }
 }

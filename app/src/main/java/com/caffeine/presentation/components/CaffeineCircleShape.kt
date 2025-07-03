@@ -19,7 +19,7 @@ import com.caffeine.ui.theme.white
 
 @Composable
 fun CaffeineCircleShape(
-    onClick: () -> Unit,
+    onClick: () -> Unit = {},
     modifier: Modifier = Modifier,
     icon: Int = 0
 ){
