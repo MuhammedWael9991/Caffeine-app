@@ -49,12 +49,12 @@ fun CaffeineButton(
                     fontSize = 16.sp,
                     fontWeight = FontWeight.Bold
                 ),
-                modifier = Modifier.padding(start = 32.dp)
+                modifier = Modifier.padding(start = 32.dp).align(Alignment.CenterVertically)
             )
             Image(
                 painter = painterResource(icon),
                 contentDescription = null,
-                modifier = Modifier.padding(start = 8.dp , end = 32.dp).offset(y = (-3).dp)
+                modifier = Modifier.padding(start = 8.dp , end = 32.dp)
             )
         }
     }

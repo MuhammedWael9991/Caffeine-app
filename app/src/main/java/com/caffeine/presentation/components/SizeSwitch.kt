@@ -35,11 +35,12 @@ import kotlinx.coroutines.delay
 
 @Composable
 fun SizeSwitch(
-    modifier: Modifier = Modifier,
-){
-    var text by remember { mutableStateOf("M") }
+    selectedSize: CupSize,
+    onSizeSelected: (CupSize) -> Unit,
+    modifier: Modifier = Modifier
+) {
+    var internalText by remember { mutableStateOf(selectedSize.label) }
     var alpha by remember { mutableStateOf(1f) }
-    var internalText by remember { mutableStateOf(text) }
 
     val targetOffsetX = when (internalText) {
         "S" -> 10.dp
@@ -60,11 +61,10 @@ fun SizeSwitch(
         label = "AlphaAnimation"
     )
 
-
-    LaunchedEffect(text) {
+    LaunchedEffect(selectedSize) {
         alpha = 0f
-        delay(500)
-        internalText = text
+        delay(200)
+        internalText = selectedSize.label
         alpha = 1f
     }
 
@@ -82,13 +82,13 @@ fun SizeSwitch(
             horizontalArrangement = Arrangement.SpaceBetween,
             verticalAlignment = Alignment.CenterVertically
         ) {
-            listOf("S", "M", "L").forEach { size ->
+            listOf("S", "M", "L").forEach { label ->
                 Text(
-                    text = size,
+                    text = label,
                     color = Color(0xFF1F1F1F).copy(alpha = 0.6f),
                     style = TextStyle(fontSize = 20.sp),
                     modifier = Modifier.clickable {
-                        text = size
+                        onSizeSelected(CupSize.fromLabel(label))
                     }
                 )
             }
@@ -100,15 +100,35 @@ fun SizeSwitch(
             modifier = Modifier
                 .align(Alignment.CenterStart)
                 .offset(x = animatedOffsetX)
-                .graphicsLayer {
-                    this.alpha = animatedAlpha
-                }
+                .graphicsLayer { this.alpha = animatedAlpha }
         )
     }
 }
 
+enum class CupSize(val label: String) {
+    Small("S"),
+    Medium("M"),
+    Large("L");
+
+    companion object {
+        fun fromLabel(label: String): CupSize =
+            when (label) {
+                "S" -> Small
+                "M" -> Medium
+                "L" -> Large
+                else -> Medium
+            }
+    }
+}
+
+
 @Preview
 @Composable
 private fun Preview(){
-    SizeSwitch()
+    SizeSwitch(
+        selectedSize = CupSize.Medium,
+        onSizeSelected = {},
+        modifier = Modifier
+            .padding(vertical = 16.dp)
+    )
 }

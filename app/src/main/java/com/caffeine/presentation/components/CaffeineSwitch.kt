@@ -104,7 +104,7 @@ fun CaffeineSwitch(
         }
 
         Row(
-            modifier = Modifier.padding(top = 2.dp).background(white).fillMaxWidth(),
+            modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.SpaceBetween
         ){
             options.forEach {

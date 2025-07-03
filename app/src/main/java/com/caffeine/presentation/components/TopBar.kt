@@ -28,7 +28,7 @@ fun TopBar(
             .fillMaxWidth()
             .height(48.dp)
     ){
-        CaffeineCircleShape(onClickBack , icon = R.drawable.ic_back)
+        CaffeineCircleShape(icon = R.drawable.ic_back)
         Text(
             text = title,
             color = Color(0xFF1F1F1F),
