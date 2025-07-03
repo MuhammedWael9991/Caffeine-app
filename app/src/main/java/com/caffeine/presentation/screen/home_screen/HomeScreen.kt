@@ -18,10 +18,12 @@ import com.caffeine.presentation.components.CaffeineButton
 import com.caffeine.presentation.components.CaffeineCircleShape
 import com.caffeine.presentation.components.CoffeeGhost
 import com.caffeine.presentation.components.WelcomeText
+import org.koin.compose.koinInject
 
 @Composable
 fun HomeScreen(
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    viewModel: HomeScreenViewModel = koinInject()
 ){
     Column(
         modifier = modifier
@@ -42,7 +44,7 @@ fun HomeScreen(
         CaffeineButton(
             title = "bring my coffee",
             icon = R.drawable.ic_coffee_mag,
-            onClick = {},
+            onClick = { viewModel.onClickButton() },
             modifier = Modifier
                 .align(Alignment.CenterHorizontally)
                 .padding(bottom = 50.dp , top = 60.dp)
