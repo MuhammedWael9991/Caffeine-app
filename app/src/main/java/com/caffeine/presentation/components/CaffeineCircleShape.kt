@@ -2,6 +2,7 @@ package com.caffeine.presentation.components
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.size
@@ -18,6 +19,7 @@ import com.caffeine.ui.theme.white
 
 @Composable
 fun CaffeineCircleShape(
+    onClick: () -> Unit,
     modifier: Modifier = Modifier,
     icon: Int = 0
 ){
@@ -26,6 +28,7 @@ fun CaffeineCircleShape(
             .size(48.dp)
             .clip(CircleShape)
             .background(white)
+            .clickable { onClick() }
     ){
         Image(
             painter = painterResource(icon),
@@ -39,7 +42,7 @@ fun CaffeineCircleShape(
 @Preview
 private fun Preview(){
     Column {
-        CaffeineCircleShape(icon = R.drawable.ic_ghost)
-        CaffeineCircleShape(icon = R.drawable.ic_plus)
+        CaffeineCircleShape({} , icon = R.drawable.ic_ghost)
+        CaffeineCircleShape({} , icon = R.drawable.ic_plus)
     }
 }
