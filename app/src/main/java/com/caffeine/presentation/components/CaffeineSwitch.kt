@@ -41,10 +41,14 @@ import kotlinx.coroutines.delay
 @Composable
 fun CaffeineSwitch(
     modifier: Modifier = Modifier,
+    selectedLevel: String,
+    onLevelChanged: (String) -> Unit
 ){
     var selected by remember { mutableStateOf("Low") }
     var pendingSelected by remember { mutableStateOf<String?>(null) }
     var visible by remember { mutableStateOf(true) }
+
+
 
     val x = when (selected) {
         "Low" -> 10.dp
@@ -74,7 +78,7 @@ fun CaffeineSwitch(
                     Box(
                         Modifier.fillMaxHeight().width(50.dp)
                             .clickable {
-                                if (it != selected){
+                                if (it != selected) {
                                     visible = false
                                     pendingSelected = it
                                 }
@@ -99,6 +103,7 @@ fun CaffeineSwitch(
                     selected = pendingSelected!!
                     pendingSelected = null
                     visible = true
+                    onLevelChanged(selected)
                 }
             }
         }
@@ -124,5 +129,8 @@ fun CaffeineSwitch(
 @Preview
 @Composable
 private fun Preview(){
-    CaffeineSwitch()
+    CaffeineSwitch(
+        selectedLevel = "Low",
+        onLevelChanged = {}
+    )
 }

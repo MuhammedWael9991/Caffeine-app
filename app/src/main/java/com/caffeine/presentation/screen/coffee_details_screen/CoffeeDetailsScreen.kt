@@ -1,6 +1,8 @@
 package com.caffeine.presentation.screen.coffee_details_screen
 
 import androidx.compose.animation.core.animateDpAsState
+import androidx.compose.animation.core.animateFloatAsState
+import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
@@ -8,16 +10,20 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
@@ -30,15 +36,43 @@ import com.caffeine.presentation.components.CaffeineSwitch
 import com.caffeine.presentation.components.CupSize
 import com.caffeine.presentation.components.SizeSwitch
 import com.caffeine.presentation.components.TopBar
-
+import kotlinx.coroutines.delay
 
 @Composable
-fun CoffeeDetailsScreen(
-    modifier: Modifier = Modifier,
-){
-
+fun CoffeeDetailsScreen(modifier: Modifier = Modifier) {
     val cupSize = remember { mutableStateOf(CupSize.Medium) }
+    val coffeeLevel = remember { mutableStateOf("Low") }
 
+    val beanCount = remember { mutableStateOf(0) }
+    var previousLevel by remember { mutableStateOf("Low") }
+
+    val isReversed = remember { mutableStateOf(false) }
+
+    LaunchedEffect(coffeeLevel.value) {
+        val current = when (coffeeLevel.value) {
+            "Low" -> 0
+            "Medium" -> 1
+            "High" -> 2
+            else -> 0
+        }
+
+        val previous = when (previousLevel) {
+            "Low" -> 0
+            "Medium" -> 1
+            "High" -> 2
+            else -> 0
+        }
+
+        isReversed.value = current < previous
+
+        if (current > previous) {
+            beanCount.value++
+        } else if (current < previous) {
+            beanCount.value++
+        }
+
+        previousLevel = coffeeLevel.value
+    }
 
     val cupImageSize by animateDpAsState(
         targetValue = when (cupSize.value) {
@@ -48,77 +82,119 @@ fun CoffeeDetailsScreen(
         },
         label = "CupImageSize"
     )
+
     val logoImageSize by animateDpAsState(
         targetValue = when (cupSize.value) {
             CupSize.Small -> 50.dp
             CupSize.Medium -> 60.dp
             CupSize.Large -> 90.dp
         },
-        label = "CupImageSize"
+        label = "LogoImageSize"
     )
 
     Column(
         modifier = modifier.fillMaxSize().background(Color.White)
     ) {
-        TopBar(
-            "Macchaito",
-            onClickBack = {},
-            modifier = Modifier
-                .padding(horizontal = 16.dp)
-                .align(Alignment.CenterHorizontally)
-        )
+        TopBar("Macchiato", onClickBack = {}, modifier = Modifier
+            .padding(horizontal = 16.dp)
+            .align(Alignment.CenterHorizontally))
+
         Box(
             modifier = Modifier
                 .fillMaxWidth()
                 .height(341.dp)
                 .align(Alignment.CenterHorizontally)
                 .padding(top = 60.dp)
-                .background(Color.Cyan)
-        ){
+                .background(Color(0xFFE0F7FA))
+        ) {
             Image(
                 painter = painterResource(id = R.drawable.ic_starbuks),
-                contentDescription = "StarBuks",
+                contentDescription = "Cup",
                 modifier = Modifier.align(Alignment.Center).size(cupImageSize)
             )
+
             Image(
                 painter = painterResource(id = R.drawable.ic_starbuks_logo),
-                contentDescription = "StarBuks",
+                contentDescription = "Logo",
                 modifier = Modifier.align(Alignment.Center).size(logoImageSize)
             )
+
             Text(
                 text = "150 ML",
                 color = Color(0xFF000000).copy(alpha = 0.6f),
-                style = TextStyle(
-                    fontSize = 14.sp,
-                    fontWeight = FontWeight.Medium
-                ),
+                fontSize = 14.sp,
+                fontWeight = FontWeight.Medium,
                 modifier = Modifier
                     .align(Alignment.TopStart)
-                    .padding(top = 64.dp , start = 16.dp)
+                    .padding(top = 64.dp, start = 16.dp)
             )
+
+
+            for (i in 0 until beanCount.value) {
+                AnimatedCoffeeBean(index = i)
+            }
         }
+
         SizeSwitch(
             selectedSize = cupSize.value,
-            onSizeSelected = { selected -> cupSize.value = selected },
-            modifier = Modifier
-                .align(Alignment.CenterHorizontally)
+            onSizeSelected = { cupSize.value = it },
+            modifier = Modifier.align(Alignment.CenterHorizontally)
                 .padding(vertical = 16.dp)
         )
+
         CaffeineSwitch(
-            modifier = Modifier
-                .align(Alignment.CenterHorizontally)
+            selectedLevel = coffeeLevel.value,
+            onLevelChanged = { coffeeLevel.value = it },
+            modifier = Modifier.align(Alignment.CenterHorizontally)
         )
 
         CaffeineButton(
             title = "Continue",
             icon = R.drawable.ic_arrow,
-            onClick = {  },
+            onClick = {},
             modifier = Modifier
                 .align(Alignment.CenterHorizontally)
-                .padding(bottom = 50.dp , top = 60.dp)
+                .padding(bottom = 50.dp, top = 60.dp)
         )
     }
 }
+
+@Composable
+fun AnimatedCoffeeBean(index: Int, reversed: Boolean = false) {
+    val startYOffset = if (reversed) 80.dp else -200.dp
+    val endYOffset = if (reversed) -200.dp else 80.dp
+
+    var isVisible by remember { mutableStateOf(false) }
+
+    LaunchedEffect(Unit) {
+        delay(300)
+        isVisible = true
+        delay(300)
+        isVisible = false
+    }
+
+    val yOffset by animateDpAsState(
+        targetValue = if (isVisible) endYOffset else startYOffset,
+        animationSpec = tween(600),
+        label = "beanYOffset"
+    )
+
+    val alpha by animateFloatAsState(
+        targetValue = if (isVisible) 1f else 0f,
+        animationSpec = tween(600),
+        label = "beanAlpha"
+    )
+
+    Image(
+        painter = painterResource(id = R.drawable.ic_coffee_beans),
+        contentDescription = "Bean",
+        modifier = Modifier
+            .offset(x = 50.dp, y = yOffset)
+            .graphicsLayer { this.alpha = alpha }
+    )
+}
+
+
 
 
 @Preview
