@@ -54,7 +54,7 @@ fun AnimatedWaveProgressBar(
         while (startX < size.width) {
             path.moveTo(startX, centerY)
 
-            val controlPoint1X = startX + waveLength / 4
+            val controlPoint1X = startX + waveLength / 2
             val controlPoint1Y = centerY - waveHeight
 
             val controlPoint2X = startX + 3 * waveLength / 5
