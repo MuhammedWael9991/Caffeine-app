@@ -19,8 +19,8 @@ import com.caffeine.ui.theme.white
 
 @Composable
 fun CaffeineCircleShape(
-    onClick: () -> Unit = {},
     modifier: Modifier = Modifier,
+    onClick: () -> Unit = {},
     icon: Int = 0
 ){
     Box(
@@ -42,7 +42,7 @@ fun CaffeineCircleShape(
 @Preview
 private fun Preview(){
     Column {
-        CaffeineCircleShape({} , icon = R.drawable.ic_ghost)
-        CaffeineCircleShape({} , icon = R.drawable.ic_plus)
+        CaffeineCircleShape(icon = R.drawable.ic_ghost)
+        CaffeineCircleShape(icon = R.drawable.ic_plus)
     }
 }
