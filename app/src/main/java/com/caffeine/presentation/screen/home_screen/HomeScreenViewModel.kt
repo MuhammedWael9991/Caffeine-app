@@ -6,7 +6,6 @@ import com.caffeine.presentation.screen.base.BaseViewModel
 
 
 class HomeScreenViewModel(
-    savedStateHandle: SavedStateHandle
 ) : BaseViewModel<HomeUiState>(HomeUiState()) , HomeInteractionListener {
 
 

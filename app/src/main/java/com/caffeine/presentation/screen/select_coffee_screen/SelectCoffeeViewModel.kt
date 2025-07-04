@@ -4,7 +4,6 @@ import androidx.lifecycle.SavedStateHandle
 import com.caffeine.presentation.screen.base.BaseViewModel
 
 class SelectCoffeeViewModel(
-    savedStateHandle: SavedStateHandle
 ) : BaseViewModel<SelectCoffeeUiState>(SelectCoffeeUiState()) , SelectCoffeeInteractionListener {
 
     override fun onClickButton() {
