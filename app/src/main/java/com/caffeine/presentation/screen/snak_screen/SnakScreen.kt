@@ -3,6 +3,7 @@ package com.caffeine.presentation.screen.snak_screen
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -26,12 +27,15 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.caffeine.R
 import com.caffeine.presentation.components.CaffeineCircleShape
+import org.koin.compose.viewmodel.koinViewModel
 import kotlin.math.abs
 
 @Composable
 fun SnakScreen(
+    viewModel: SnakViewModel = koinViewModel(),
     modifier: Modifier = Modifier
 ){
     Column(
@@ -69,7 +73,8 @@ fun SnakScreen(
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(top = 16.dp)
-                    .offset(x = (-50).dp)
+                    .offset(x = (-50).dp),
+                onClick = { viewModel.onClickCard() }
             )
         }
     }
@@ -79,7 +84,8 @@ fun SnakScreen(
 @Composable
 private fun ZoomPager(
     items: List<Int>,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    onClick: () -> Unit,
 ) {
 
     val pagerState = rememberPagerState(
@@ -116,7 +122,9 @@ private fun ZoomPager(
             Image(
                 painter = painterResource(id = items[page]),
                 contentDescription = null,
-                modifier = Modifier
+                modifier = Modifier.clickable {
+                    onClick()
+                }
             )
 
         }

@@ -17,6 +17,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -71,6 +72,8 @@ fun CoffeeDetailsScreen(
             "High" -> 2
             else -> 0
         }
+
+
 
         isReversed.value = current < previous
 
@@ -130,9 +133,17 @@ fun CoffeeDetailsScreen(
                 contentDescription = "Logo",
                 modifier = Modifier.align(Alignment.Center).size(logoImageSize)
             )
-
+            val ml by remember {
+                derivedStateOf {
+                    when (cupSize.value) {
+                        CupSize.Small -> "150 ML"
+                        CupSize.Medium -> "200 ML"
+                        CupSize.Large -> "400 ML"
+                    }
+                }
+            }
             Text(
-                text = "150 ML",
+                text = ml,
                 color = Color(0xFF000000).copy(alpha = 0.6f),
                 fontSize = 14.sp,
                 fontWeight = FontWeight.Medium,
@@ -142,9 +153,9 @@ fun CoffeeDetailsScreen(
             )
 
 
-            for (i in 0 until beanCount.value) {
-                AnimatedCoffeeBean(index = i)
-            }
+//            for (i in 0 until beanCount.value) {
+//                AnimatedCoffeeBean(index = i)
+//            }
         }
 
         SizeSwitch(
@@ -174,41 +185,41 @@ fun CoffeeDetailsScreen(
         )
     }
 }
-
-@Composable
-fun AnimatedCoffeeBean(index: Int, reversed: Boolean = false) {
-    val startYOffset = if (reversed) 80.dp else -200.dp
-    val endYOffset = if (reversed) -200.dp else 80.dp
-
-    var isVisible by remember { mutableStateOf(false) }
-
-    LaunchedEffect(Unit) {
-        delay(300)
-        isVisible = true
-        delay(300)
-        isVisible = false
-    }
-
-    val yOffset by animateDpAsState(
-        targetValue = if (isVisible) endYOffset else startYOffset,
-        animationSpec = tween(600),
-        label = "beanYOffset"
-    )
-
-    val alpha by animateFloatAsState(
-        targetValue = if (isVisible) 1f else 0f,
-        animationSpec = tween(600),
-        label = "beanAlpha"
-    )
-
-    Image(
-        painter = painterResource(id = R.drawable.ic_coffee_beans),
-        contentDescription = "Bean",
-        modifier = Modifier
-            .offset(x = 50.dp, y = yOffset)
-            .graphicsLayer { this.alpha = alpha }
-    )
-}
+//
+//@Composable
+//fun AnimatedCoffeeBean(index: Int, reversed: Boolean = false) {
+//    val startYOffset = if (reversed) 80.dp else -200.dp
+//    val endYOffset = if (reversed) -200.dp else 80.dp
+//
+//    var isVisible by remember { mutableStateOf(false) }
+//
+//    LaunchedEffect(Unit) {
+//        delay(300)
+//        isVisible = true
+//        delay(300)
+//        isVisible = false
+//    }
+//
+//    val yOffset by animateDpAsState(
+//        targetValue = if (isVisible) endYOffset else startYOffset,
+//        animationSpec = tween(600),
+//        label = "beanYOffset"
+//    )
+//
+//    val alpha by animateFloatAsState(
+//        targetValue = if (isVisible) 1f else 0f,
+//        animationSpec = tween(600),
+//        label = "beanAlpha"
+//    )
+//
+//    Image(
+//        painter = painterResource(id = R.drawable.ic_coffee_beans),
+//        contentDescription = "Bean",
+//        modifier = Modifier
+//            .offset(x = 50.dp, y = yOffset)
+//            .graphicsLayer { this.alpha = alpha }
+//    )
+//}
 
 
 

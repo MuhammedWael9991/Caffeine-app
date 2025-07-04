@@ -13,6 +13,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -25,11 +26,18 @@ import androidx.compose.ui.unit.sp
 import com.caffeine.R
 import com.caffeine.presentation.components.AnimatedWaveProgressBar
 import com.caffeine.ui.theme.brawn
+import kotlinx.coroutines.delay
+import org.koin.compose.viewmodel.koinViewModel
 
 @Composable
 fun DeliverCoffeeScreen(
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    viewModel: DeliverCoffeeViewModel = koinViewModel()
 ) {
+    LaunchedEffect(Unit) {
+    delay(3000)
+    viewModel.onFinish()
+}
 
     val cupImageSize = 250.dp
     val logoImageSize = 90.dp

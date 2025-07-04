@@ -3,6 +3,8 @@ package com.caffeine.presentation.components
 import androidx.compose.animation.core.animateDpAsState
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.tween
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -39,34 +41,18 @@ fun SizeSwitch(
     onSizeSelected: (CupSize) -> Unit,
     modifier: Modifier = Modifier
 ) {
-    var internalText by remember { mutableStateOf(selectedSize.label) }
-    var alpha by remember { mutableStateOf(1f) }
+    var selected by remember { mutableStateOf(selectedSize) }
+    var pendingSelected by remember { mutableStateOf<CupSize?>(null) }
+    var visible by remember { mutableStateOf(true) }
 
-    val targetOffsetX = when (internalText) {
+    val offsetX = when (selected.label) {
         "S" -> 10.dp
         "M" -> 55.dp
         "L" -> 105.dp
         else -> 0.dp
     }
 
-    val animatedOffsetX by animateDpAsState(
-        targetValue = targetOffsetX,
-        animationSpec = tween(durationMillis = 200),
-        label = "SizeSwitchOffset"
-    )
-
-    val animatedAlpha by animateFloatAsState(
-        targetValue = alpha,
-        animationSpec = tween(durationMillis = 200),
-        label = "AlphaAnimation"
-    )
-
-    LaunchedEffect(selectedSize) {
-        alpha = 0f
-        delay(200)
-        internalText = selectedSize.label
-        alpha = 1f
-    }
+    val options = listOf(CupSize.Small, CupSize.Medium, CupSize.Large)
 
     Box(
         modifier = modifier
@@ -82,28 +68,49 @@ fun SizeSwitch(
             horizontalArrangement = Arrangement.SpaceBetween,
             verticalAlignment = Alignment.CenterVertically
         ) {
-            listOf("S", "M", "L").forEach { label ->
+            options.forEach { size ->
                 Text(
-                    text = label,
+                    text = size.label,
                     color = Color(0xFF1F1F1F).copy(alpha = 0.6f),
                     style = TextStyle(fontSize = 20.sp),
                     modifier = Modifier.clickable {
-                        onSizeSelected(CupSize.fromLabel(label))
+                        if (size != selected) {
+                            visible = false
+                            pendingSelected = size
+                        }
                     }
                 )
             }
         }
 
-        SelectShape(
-            isSize = true,
-            text = internalText,
+
+        androidx.compose.animation.AnimatedVisibility(
+            visible = visible,
+            enter = fadeIn(tween(200)),
+            exit = fadeOut(tween(200)),
             modifier = Modifier
                 .align(Alignment.CenterStart)
-                .offset(x = animatedOffsetX)
-                .graphicsLayer { this.alpha = animatedAlpha }
-        )
+                .offset(x = offsetX)
+        ) {
+            SelectShape(
+                isSize = true,
+                text = selected.label
+            )
+        }
+
+
+        LaunchedEffect(visible) {
+            if (!visible && pendingSelected != null) {
+                delay(200)
+                selected = pendingSelected!!
+                pendingSelected = null
+                visible = true
+                onSizeSelected(selected)
+            }
+        }
     }
 }
+
 
 enum class CupSize(val label: String) {
     Small("S"),

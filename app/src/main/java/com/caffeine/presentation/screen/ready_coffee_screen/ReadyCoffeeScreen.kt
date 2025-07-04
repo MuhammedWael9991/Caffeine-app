@@ -29,9 +29,12 @@ import com.caffeine.presentation.components.CaffeineButton
 import com.caffeine.presentation.components.CaffeineCircleShape
 import com.caffeine.presentation.components.OnOffSwitch
 import com.caffeine.presentation.components.SelectShape
+import org.koin.compose.viewmodel.koinViewModel
 
 @Composable
-fun ReadyCoffeeScreen(){
+fun ReadyCoffeeScreen(
+    viewModel: ReadyCoffeeViewModel = koinViewModel()
+){
     Column(
         modifier = Modifier.fillMaxSize().background(Color.White)
     ) {
@@ -122,7 +125,7 @@ fun ReadyCoffeeScreen(){
                 CaffeineButton(
                     title = "Take snack",
                     icon = R.drawable.ic_arrow,
-                    onClick = {},
+                    onClick = { viewModel.onClickButton() },
                     modifier = Modifier.padding(top = 16.dp)
                 )
             }

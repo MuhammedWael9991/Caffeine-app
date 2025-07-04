@@ -6,7 +6,7 @@ import com.caffeine.presentation.screen.base.BaseViewModel
 class ReadyCoffeeViewModel(
 
 ) : BaseViewModel<ReadyCoffeeUiState>(ReadyCoffeeUiState()) , ReadyCoffeeInteractionListener {
-    override fun onFinish() {
+    override fun onClickButton() {
         navigate(Destinations.Snak)
     }
 

@@ -25,9 +25,11 @@ import com.caffeine.R
 import com.caffeine.presentation.components.CaffeineButton
 import com.caffeine.presentation.components.CaffeineCircleShape
 import com.caffeine.ui.theme.brawn
+import org.koin.compose.viewmodel.koinViewModel
 
 @Composable
 fun ThankYouuScreen(
+    viewModel: ThankYouuViewModel = koinViewModel(),
     modifier: Modifier = Modifier
 ){
     Column(
@@ -91,7 +93,9 @@ fun ThankYouuScreen(
         CaffeineButton(
             title = "Thank youu",
             icon = R.drawable.ic_arrow,
-            onClick = {},
+            onClick = {
+                viewModel.onClickButton()
+            },
             modifier = Modifier
                 .align(Alignment.CenterHorizontally)
                 .padding(top = 162.dp)
