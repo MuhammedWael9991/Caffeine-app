@@ -20,6 +20,7 @@ import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.caffeine.R
@@ -30,11 +31,13 @@ import com.caffeine.ui.theme.white
 fun SelectShape(
     isSize: Boolean,
     modifier: Modifier = Modifier,
-    text: String = ""
+    icon: Int = R.drawable.ic_coffee,
+    text: String = "",
+    circleSize: Dp = 40.dp
 ){
     Box(
         modifier = modifier
-            .size(40.dp)
+            .size(circleSize)
             .shadow(
                 elevation = 0.dp,
                 shape = CircleShape,
@@ -75,7 +78,7 @@ fun SelectShape(
         }else
         {
             Image(
-                painter = painterResource(R.drawable.ic_coffee),
+                painter = painterResource(icon),
                 contentDescription = null,
                 modifier = Modifier.align(Alignment.Center)
             )
