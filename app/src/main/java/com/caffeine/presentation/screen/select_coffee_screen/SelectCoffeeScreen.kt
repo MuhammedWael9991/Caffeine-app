@@ -15,6 +15,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
@@ -55,13 +56,22 @@ fun SelectCoffeeScreen(
         }
         GoodMorningItem("Hamsa" , modifier = Modifier.padding(top = 16.dp , start = 16.dp))
 
-        ZoomPager(items = itemsList , modifier = Modifier.padding(top = 106.dp))
+        ZoomPager(
+            items = itemsList,
+            modifier = Modifier
+                .padding(top = 106.dp),
+            onItemSelected = { index ->
+                viewModel.onCoffeeSelected(index)
+            }
+        )
 
+        val selectedIndex = viewModel.selectedIndex.value
+        val selectedCoffeeName = coffeeNamesList[selectedIndex]
 
         CaffeineButton(
             title = "Continue",
             icon = R.drawable.ic_arrow,
-            onClick = { viewModel.onClickButton() },
+            onClick = { viewModel.onClickButton(selectedCoffeeName) },
             modifier = Modifier
                 .align(Alignment.CenterHorizontally)
                 .padding(bottom = 50.dp , top = 111.dp)
@@ -76,15 +86,29 @@ val itemsList = listOf(
     R.drawable.espresso
 )
 
+val coffeeNamesList = listOf(
+    "Black",
+    "Macchiato",
+    "Latte",
+    "Espresso"
+)
+
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 private fun ZoomPager(
     items: List<Int>,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    onItemSelected: (Int) -> Unit
 ) {
+    val pagerState = rememberPagerState(
+        initialPage = 0,
+        pageCount = { items.size }
+    )
 
-    val pagerState = rememberPagerState(pageCount = { items.size })
 
+    LaunchedEffect(pagerState.currentPage) {
+        onItemSelected(pagerState.currentPage)
+    }
 
     HorizontalPager(
         state = pagerState,
@@ -96,7 +120,6 @@ private fun ZoomPager(
     ) { page ->
 
         val pageOffset = (pagerState.currentPage - page) + pagerState.currentPageOffsetFraction
-
         val scale = 1.5f - abs(pageOffset) * 0.6f
 
         Box(
@@ -115,10 +138,10 @@ private fun ZoomPager(
                 contentDescription = null,
                 modifier = Modifier
             )
-
         }
     }
 }
+
 
 
 @Preview(showSystemUi = true)

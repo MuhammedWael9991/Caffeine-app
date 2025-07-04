@@ -26,6 +26,9 @@ open class BaseViewModel<S>(initialState: S) : ViewModel(), KoinComponent {
 
     protected fun navigateUp() = viewModelScope.launch { navigator.navigateUp() }
 
+    protected fun updateUiState(update: (S) -> S) {
+        _uiState.value = update(_uiState.value)
+    }
 
     protected fun launchSafely(
         onLoading: (() -> Unit)? = null,

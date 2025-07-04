@@ -16,6 +16,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -38,13 +39,16 @@ import com.caffeine.presentation.components.SizeSwitch
 import com.caffeine.presentation.components.TopBar
 import kotlinx.coroutines.delay
 import org.koin.compose.koinInject
+import org.koin.compose.viewmodel.koinViewModel
 
 @Composable
 fun CoffeeDetailsScreen(
     modifier: Modifier = Modifier,
-    viewModel: CoffeeDetailsViewModel = koinInject()
-
+    viewModel: CoffeeDetailsViewModel = koinViewModel()
 ) {
+
+    val uiState by viewModel.uiState.collectAsState()
+
     val cupSize = remember { mutableStateOf(CupSize.Medium) }
     val coffeeLevel = remember { mutableStateOf("Low") }
 
@@ -100,9 +104,13 @@ fun CoffeeDetailsScreen(
     Column(
         modifier = modifier.fillMaxSize().background(Color.White)
     ) {
-        TopBar("Macchiato", onClickBack = {}, modifier = Modifier
-            .padding(horizontal = 16.dp)
-            .align(Alignment.CenterHorizontally))
+        TopBar(
+            uiState.type,
+            onClickBack = { viewModel.onClickBack() },
+            modifier = Modifier
+                .padding(horizontal = 16.dp)
+                .align(Alignment.CenterHorizontally)
+        )
 
         Box(
             modifier = Modifier
@@ -110,7 +118,6 @@ fun CoffeeDetailsScreen(
                 .height(341.dp)
                 .align(Alignment.CenterHorizontally)
                 .padding(top = 60.dp)
-                .background(Color(0xFFE0F7FA))
         ) {
             Image(
                 painter = painterResource(id = R.drawable.ic_starbuks),
@@ -143,14 +150,18 @@ fun CoffeeDetailsScreen(
         SizeSwitch(
             selectedSize = cupSize.value,
             onSizeSelected = { cupSize.value = it },
-            modifier = Modifier.align(Alignment.CenterHorizontally)
-                .padding(vertical = 16.dp)
+            modifier = Modifier
+                .align(Alignment.CenterHorizontally)
+                .padding(top = 24.dp)
         )
 
         CaffeineSwitch(
             selectedLevel = coffeeLevel.value,
             onLevelChanged = { coffeeLevel.value = it },
-            modifier = Modifier.align(Alignment.CenterHorizontally)
+            modifier = Modifier
+                .align(Alignment.CenterHorizontally)
+                .padding(top = 16.dp)
+
         )
 
         CaffeineButton(
@@ -159,7 +170,7 @@ fun CoffeeDetailsScreen(
             onClick = { viewModel.onClickButton() },
             modifier = Modifier
                 .align(Alignment.CenterHorizontally)
-                .padding(bottom = 50.dp, top = 60.dp)
+                .padding( top = 100.dp)
         )
     }
 }

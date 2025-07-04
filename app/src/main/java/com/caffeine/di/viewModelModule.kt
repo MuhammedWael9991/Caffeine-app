@@ -1,5 +1,6 @@
 package com.caffeine.di
 
+import androidx.lifecycle.SavedStateHandle
 import com.caffeine.presentation.navigation.Destinations
 import com.caffeine.presentation.navigation.Navigator
 import com.caffeine.presentation.navigation.NavigatorImpl
@@ -16,10 +17,12 @@ import org.koin.dsl.module
 val viewModelModule = module {
     viewModel { HomeScreenViewModel() }
     viewModel { SelectCoffeeViewModel() }
-    viewModel { CoffeeDetailsViewModel() }
     viewModel { DeliverCoffeeViewModel() }
     viewModel { ThankYouuViewModel() }
     viewModel { SnakViewModel() }
     viewModel { ReadyCoffeeViewModel() }
+    viewModel { (handle: SavedStateHandle) ->
+        CoffeeDetailsViewModel(handle)
+    }
     single<Navigator> { NavigatorImpl(startGraph = Destinations.CaffeineGraph) }
 }

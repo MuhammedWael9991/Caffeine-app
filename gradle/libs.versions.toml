@@ -16,6 +16,7 @@ koinAndroid = "4.0.2"
 koinCompose = "4.0.2"
 koinComposeViewmodel = "4.0.2"
 koinCore = "4.0.2"
+roomRuntimeAndroid = "2.7.2"
 
 
 [libraries]

@@ -24,7 +24,7 @@ sealed interface Destinations : Graph {
     data object SelectCoffee : Destination
 
     @Serializable
-    data object CoffeeDetails : Destination
+    data class CoffeeDetails(val type: String) : Destination
 
     @Serializable
     data object DeliverCoffee : Destination
