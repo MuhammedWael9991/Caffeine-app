@@ -37,9 +37,14 @@ import com.caffeine.presentation.components.CupSize
 import com.caffeine.presentation.components.SizeSwitch
 import com.caffeine.presentation.components.TopBar
 import kotlinx.coroutines.delay
+import org.koin.compose.koinInject
 
 @Composable
-fun CoffeeDetailsScreen(modifier: Modifier = Modifier) {
+fun CoffeeDetailsScreen(
+    modifier: Modifier = Modifier,
+    viewModel: CoffeeDetailsViewModel = koinInject()
+
+) {
     val cupSize = remember { mutableStateOf(CupSize.Medium) }
     val coffeeLevel = remember { mutableStateOf("Low") }
 
@@ -151,7 +156,7 @@ fun CoffeeDetailsScreen(modifier: Modifier = Modifier) {
         CaffeineButton(
             title = "Continue",
             icon = R.drawable.ic_arrow,
-            onClick = {},
+            onClick = { viewModel.onClickButton() },
             modifier = Modifier
                 .align(Alignment.CenterHorizontally)
                 .padding(bottom = 50.dp, top = 60.dp)
