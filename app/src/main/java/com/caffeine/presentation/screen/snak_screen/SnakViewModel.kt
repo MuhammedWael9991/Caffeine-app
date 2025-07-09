@@ -9,4 +9,10 @@ class SnakViewModel : BaseViewModel<SnakUiState>(SnakUiState()), SnakInteraction
         navigate(Destinations.ThankYouu(snak))
     }
 
+    override fun onClickExit(){
+        navigate(Destinations.Home)
+
+    }
+
+
 }

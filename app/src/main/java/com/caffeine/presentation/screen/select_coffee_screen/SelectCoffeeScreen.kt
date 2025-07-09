@@ -1,6 +1,5 @@
 package com.caffeine.presentation.screen.select_coffee_screen
 
-import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -16,8 +15,6 @@ import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -29,7 +26,6 @@ import com.caffeine.R
 import com.caffeine.presentation.components.CaffeineButton
 import com.caffeine.presentation.components.CaffeineCircleShape
 import com.caffeine.presentation.components.GoodMorningItem
-import com.caffeine.ui.theme.white
 import org.koin.compose.koinInject
 import kotlin.math.abs
 
@@ -38,7 +34,6 @@ fun SelectCoffeeScreen(
     modifier: Modifier = Modifier,
     viewModel: SelectCoffeeViewModel = koinInject()
 ){
-    val uiState by viewModel.uiState.collectAsState()
 
     Column(
         modifier = modifier
@@ -93,7 +88,7 @@ val coffeeNamesList = listOf(
     "Espresso"
 )
 
-@OptIn(ExperimentalFoundationApi::class)
+
 @Composable
 private fun ZoomPager(
     items: List<Int>,

@@ -28,7 +28,6 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.caffeine.R
 import com.caffeine.ui.theme.sniglet
-import com.caffeine.ui.theme.urbanist
 
 @Composable
 fun WelcomeText(

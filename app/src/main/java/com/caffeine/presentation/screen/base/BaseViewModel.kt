@@ -30,18 +30,4 @@ open class BaseViewModel<S>(initialState: S) : ViewModel(), KoinComponent {
         _uiState.value = update(_uiState.value)
     }
 
-    protected fun launchSafely(
-        onLoading: (() -> Unit)? = null,
-        onSuccess: suspend () -> Unit,
-        onError: (String) -> Unit
-    ) {
-        viewModelScope.launch {
-            try {
-                onLoading?.let { it() }
-                onSuccess()
-            } catch (e: Exception) {
-                onError(e.message ?: "Unexpected error")
-            }
-        }
-    }
 }

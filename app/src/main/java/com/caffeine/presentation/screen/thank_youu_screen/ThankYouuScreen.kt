@@ -18,6 +18,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
@@ -33,8 +34,8 @@ import org.koin.compose.viewmodel.koinViewModel
 
 @Composable
 fun ThankYouuScreen(
-    viewModel: ThankYouuViewModel = koinViewModel(),
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    viewModel: ThankYouuViewModel = koinViewModel()
 ){
     val uiState by viewModel.uiState.collectAsState()
 
@@ -55,21 +56,26 @@ fun ThankYouuScreen(
     ) {
         CaffeineCircleShape(
             modifier = Modifier.padding(start = 16.dp),
-            onClick = {},
+            onClick = {
+                viewModel.onClickButton()
+            },
             icon = R.drawable.ic_exit
         )
         Row(
-            modifier = Modifier.align(Alignment.CenterHorizontally)
+            modifier = Modifier
+                .align(Alignment.CenterHorizontally)
                 .padding(top = 16.dp)
         ){
             Icon(
                 painter = painterResource(R.drawable.ic_coffee),
                 contentDescription = null,
                 tint = brawn,
-                modifier = Modifier.size(32.dp).padding(end = 6.dp)
+                modifier = Modifier
+                    .size(32.dp)
+                    .padding(end = 6.dp)
             )
             Text(
-                text = "More Espresso, Less Depresso",
+                text = stringResource(R.string.more_espresso_less_depresso),
                 color = brawn,
                 style = TextStyle(
                     fontFamily = sniglet,
@@ -82,20 +88,27 @@ fun ThankYouuScreen(
                 painter = painterResource(R.drawable.ic_coffee),
                 contentDescription = null,
                 tint = brawn,
-                modifier = Modifier.size(32.dp).padding(start = 6.dp)
+                modifier = Modifier
+                    .size(32.dp)
+                    .padding(start = 6.dp)
             )
         }
 
         Image(
             painter = painterResource(snak),
             contentDescription = null,
-            modifier = Modifier.fillMaxWidth().height(310.dp).padding(top = 16.dp)
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(310.dp)
+                .padding(top = 16.dp)
         )
         Row(
-            modifier = Modifier.align(Alignment.CenterHorizontally).padding(top = 24.dp)
+            modifier = Modifier
+                .align(Alignment.CenterHorizontally)
+                .padding(top = 24.dp)
         ){
             Text(
-                text = "Bon appétit",
+                text = stringResource(R.string.bon_app_tit),
                 color = Color(0xFF1F1F1F).copy(alpha = 0.8f),
                 style = TextStyle(
                     fontFamily = urbanist,
@@ -110,7 +123,7 @@ fun ThankYouuScreen(
             )
         }
         CaffeineButton(
-            title = "Thank youu",
+            title = stringResource(R.string.thank_youu),
             icon = R.drawable.ic_arrow,
             onClick = {
                 viewModel.onClickButton()

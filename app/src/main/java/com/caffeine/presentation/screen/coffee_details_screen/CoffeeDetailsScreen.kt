@@ -1,8 +1,6 @@
 package com.caffeine.presentation.screen.coffee_details_screen
 
 import androidx.compose.animation.core.animateDpAsState
-import androidx.compose.animation.core.animateFloatAsState
-import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
@@ -10,7 +8,6 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Text
@@ -19,13 +16,13 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
@@ -39,8 +36,6 @@ import com.caffeine.presentation.components.CupSize
 import com.caffeine.presentation.components.SizeSwitch
 import com.caffeine.presentation.components.TopBar
 import com.caffeine.ui.theme.urbanist
-import kotlinx.coroutines.delay
-import org.koin.compose.koinInject
 import org.koin.compose.viewmodel.koinViewModel
 
 @Composable
@@ -54,7 +49,7 @@ fun CoffeeDetailsScreen(
     val cupSize = remember { mutableStateOf(CupSize.Medium) }
     val coffeeLevel = remember { mutableStateOf("Low") }
 
-    val beanCount = remember { mutableStateOf(0) }
+    val beanCount = remember { mutableIntStateOf(0) }
     var previousLevel by remember { mutableStateOf("Low") }
 
     val isReversed = remember { mutableStateOf(false) }
@@ -79,9 +74,9 @@ fun CoffeeDetailsScreen(
         isReversed.value = current < previous
 
         if (current > previous) {
-            beanCount.value++
+            beanCount.intValue++
         } else if (current < previous) {
-            beanCount.value++
+            beanCount.intValue++
         }
 
         previousLevel = coffeeLevel.value

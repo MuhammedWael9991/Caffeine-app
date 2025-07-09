@@ -1,6 +1,5 @@
 package com.caffeine.presentation.screen.snak_screen
 
-import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -27,7 +26,6 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.lifecycle.viewmodel.compose.viewModel
 import com.caffeine.R
 import com.caffeine.presentation.components.CaffeineCircleShape
 import com.caffeine.ui.theme.urbanist
@@ -36,8 +34,8 @@ import kotlin.math.abs
 
 @Composable
 fun SnakScreen(
-    viewModel: SnakViewModel = koinViewModel(),
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    viewModel: SnakViewModel = koinViewModel()
 ){
     val snackList = listOf(
         SnackItem("Oreo", R.drawable.oreo),
@@ -55,7 +53,9 @@ fun SnakScreen(
     ) {
         CaffeineCircleShape(
             modifier = Modifier.padding(start = 16.dp),
-            onClick = {},
+            onClick = {
+                viewModel.onClickExit()
+            },
             icon = R.drawable.ic_exit
         )
         Text(
@@ -85,7 +85,7 @@ fun SnakScreen(
     }
 }
 
-@OptIn(ExperimentalFoundationApi::class)
+
 @Composable
 private fun ZoomPager(
     items: List<SnackItem>,
