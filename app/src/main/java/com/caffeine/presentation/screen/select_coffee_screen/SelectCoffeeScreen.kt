@@ -49,7 +49,7 @@ fun SelectCoffeeScreen(
             CaffeineCircleShape(icon = R.drawable.ic_ghost)
             CaffeineCircleShape(icon = R.drawable.ic_plus)
         }
-        GoodMorningItem("Hamsa" , modifier = Modifier.padding(top = 16.dp , start = 16.dp))
+        GoodMorningItem("Wael" , modifier = Modifier.padding(top = 16.dp , start = 16.dp))
 
         ZoomPager(
             items = itemsList,
