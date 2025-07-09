@@ -3,11 +3,10 @@ package com.caffeine.presentation.screen.snak_screen
 import com.caffeine.presentation.navigation.Destinations
 import com.caffeine.presentation.screen.base.BaseViewModel
 
-class SnakViewModel(
+class SnakViewModel : BaseViewModel<SnakUiState>(SnakUiState()), SnakInteractionListener {
 
-) : BaseViewModel<SnakUiState>(SnakUiState()), SnakInteractionListener {
-    override fun onClickCard() {
-        navigate(Destinations.ThankYouu)
+    override fun onClickCard(snak: String) {
+        navigate(Destinations.ThankYouu(snak))
     }
 
 }

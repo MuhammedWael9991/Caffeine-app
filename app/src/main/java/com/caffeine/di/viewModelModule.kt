@@ -18,7 +18,7 @@ val viewModelModule = module {
     viewModel { HomeScreenViewModel() }
     viewModel { SelectCoffeeViewModel() }
     viewModel { DeliverCoffeeViewModel(get()) }
-    viewModel { ThankYouuViewModel() }
+    viewModel { ThankYouuViewModel(get()) }
     viewModel { SnakViewModel() }
     viewModel { ReadyCoffeeViewModel() }
     viewModel { (handle: SavedStateHandle) ->

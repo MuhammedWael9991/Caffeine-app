@@ -12,6 +12,8 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -34,6 +36,18 @@ fun ThankYouuScreen(
     viewModel: ThankYouuViewModel = koinViewModel(),
     modifier: Modifier = Modifier
 ){
+    val uiState by viewModel.uiState.collectAsState()
+
+    val snak = when (uiState.snak){
+        "Oreo" -> R.drawable.ic_oreo
+        "Cookies" -> R.drawable.ic_cookies
+        "Chocolate" -> R.drawable.ic_chocolate
+        "Croissant" -> R.drawable.ic_croissant
+        "Lasagna" -> R.drawable.ic_lasagna
+        "Cupcake" -> R.drawable.ic_cupcake
+        else -> R.drawable.ic_cupcake
+    }
+
     Column(
         modifier = modifier
             .fillMaxSize()
@@ -73,7 +87,7 @@ fun ThankYouuScreen(
         }
 
         Image(
-            painter = painterResource(R.drawable.cup_cake),
+            painter = painterResource(snak),
             contentDescription = null,
             modifier = Modifier.fillMaxWidth().height(310.dp).padding(top = 16.dp)
         )

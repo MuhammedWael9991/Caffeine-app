@@ -39,6 +39,15 @@ fun SnakScreen(
     viewModel: SnakViewModel = koinViewModel(),
     modifier: Modifier = Modifier
 ){
+    val snackList = listOf(
+        SnackItem("Oreo", R.drawable.oreo),
+        SnackItem("Cookies", R.drawable.cookies),
+        SnackItem("Chocolate", R.drawable.chocolate),
+        SnackItem("Croissant", R.drawable.croissant),
+        SnackItem("Lasagna", R.drawable.lasagna),
+        SnackItem("Cupcake", R.drawable.cupcake)
+    )
+
     Column(
         modifier = modifier
             .fillMaxSize()
@@ -59,24 +68,18 @@ fun SnakScreen(
             ),
             modifier = Modifier.padding(top = 24.dp , start = 16.dp)
         )
-        val imageList = listOf(
-            R.drawable.oreo,
-            R.drawable.cookies,
-            R.drawable.chocolate,
-            R.drawable.croissant,
-            R.drawable.lasagna,
-            R.drawable.cupcake
-        )
         Box(
             modifier = Modifier.fillMaxSize().padding(top = 16.dp)
         ){
             ZoomPager(
-                items = imageList,
+                items = snackList,
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(top = 16.dp)
                     .offset(x = (-50).dp),
-                onClick = { viewModel.onClickCard() }
+                onClick = {
+                    viewModel.onClickCard(it.name)
+                }
             )
         }
     }
@@ -85,9 +88,9 @@ fun SnakScreen(
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 private fun ZoomPager(
-    items: List<Int>,
+    items: List<SnackItem>,
     modifier: Modifier = Modifier,
-    onClick: () -> Unit,
+    onClick: (SnackItem) -> Unit,
 ) {
 
     val pagerState = rememberPagerState(
@@ -122,16 +125,21 @@ private fun ZoomPager(
             contentAlignment = Alignment.Center
         ) {
             Image(
-                painter = painterResource(id = items[page]),
+                painter = painterResource(id = items[page].imageResId),
                 contentDescription = null,
                 modifier = Modifier.clickable {
-                    onClick()
+                    onClick(items[page])
                 }
             )
 
         }
     }
 }
+
+data class SnackItem(
+    val name: String,
+    val imageResId: Int
+)
 
 @Preview
 @Composable
