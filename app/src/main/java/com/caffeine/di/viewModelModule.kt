@@ -17,7 +17,7 @@ import org.koin.dsl.module
 val viewModelModule = module {
     viewModel { HomeScreenViewModel() }
     viewModel { SelectCoffeeViewModel() }
-    viewModel { DeliverCoffeeViewModel() }
+    viewModel { DeliverCoffeeViewModel(get()) }
     viewModel { ThankYouuViewModel() }
     viewModel { SnakViewModel() }
     viewModel { ReadyCoffeeViewModel() }

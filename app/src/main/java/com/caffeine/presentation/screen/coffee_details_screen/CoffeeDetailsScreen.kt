@@ -104,6 +104,15 @@ fun CoffeeDetailsScreen(
         },
         label = "LogoImageSize"
     )
+    val ml by remember {
+        derivedStateOf {
+            when (cupSize.value) {
+                CupSize.Small -> "150 ML"
+                CupSize.Medium -> "200 ML"
+                CupSize.Large -> "400 ML"
+            }
+        }
+    }
 
     Column(
         modifier = modifier.fillMaxSize().background(Color.White)
@@ -134,15 +143,7 @@ fun CoffeeDetailsScreen(
                 contentDescription = "Logo",
                 modifier = Modifier.align(Alignment.Center).size(logoImageSize)
             )
-            val ml by remember {
-                derivedStateOf {
-                    when (cupSize.value) {
-                        CupSize.Small -> "150 ML"
-                        CupSize.Medium -> "200 ML"
-                        CupSize.Large -> "400 ML"
-                    }
-                }
-            }
+
             Text(
                 text = ml,
                 color = Color(0xFF000000).copy(alpha = 0.6f),
@@ -179,7 +180,7 @@ fun CoffeeDetailsScreen(
         CaffeineButton(
             title = "Continue",
             icon = R.drawable.ic_arrow,
-            onClick = { viewModel.onClickButton() },
+            onClick = { viewModel.onClickButton(ml) },
             modifier = Modifier
                 .align(Alignment.CenterHorizontally)
                 .padding( top = 100.dp)

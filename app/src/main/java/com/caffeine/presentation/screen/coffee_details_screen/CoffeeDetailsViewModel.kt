@@ -15,8 +15,8 @@ class CoffeeDetailsViewModel(
         val coffeeType = destination.type
         updateUiState { it.copy(type = coffeeType) }
     }
-    override fun onClickButton() {
-        navigate(Destinations.DeliverCoffee)
+    override fun onClickButton(size: String) {
+        navigate(Destinations.DeliverCoffee(size))
     }
 
     override fun onClickBack() {

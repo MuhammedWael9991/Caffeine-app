@@ -14,6 +14,9 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -36,6 +39,9 @@ fun DeliverCoffeeScreen(
     modifier: Modifier = Modifier,
     viewModel: DeliverCoffeeViewModel = koinViewModel()
 ) {
+
+    val uiState by viewModel.uiState.collectAsState()
+
     LaunchedEffect(Unit) {
     delay(3000)
     viewModel.onFinish()
@@ -66,7 +72,7 @@ fun DeliverCoffeeScreen(
             )
 
             Text(
-                text = "150 ML",
+                text = uiState.size,
                 color = Color(0xFF000000).copy(alpha = 0.6f),
                 style = TextStyle(
                     fontFamily = urbanist,
@@ -117,7 +123,7 @@ fun DeliverCoffeeScreen(
                     horizontalArrangement = Arrangement.Center,
                 ) {
                     Text(
-                        text = "FF",
+                        text = "CO",
                         color = brawn,
                         style = TextStyle(
                             fontFamily = sniglet,
@@ -133,7 +139,7 @@ fun DeliverCoffeeScreen(
                             .align(Alignment.CenterVertically)
                     )
                     Text(
-                        text = "CO",
+                        text = "FF",
                         color = brawn,
                         style = TextStyle(
                             fontFamily = sniglet,
