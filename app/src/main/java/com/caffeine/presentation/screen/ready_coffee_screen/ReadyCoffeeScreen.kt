@@ -29,6 +29,7 @@ import com.caffeine.presentation.components.CaffeineButton
 import com.caffeine.presentation.components.CaffeineCircleShape
 import com.caffeine.presentation.components.OnOffSwitch
 import com.caffeine.presentation.components.SelectShape
+import com.caffeine.ui.theme.urbanist
 import org.koin.compose.viewmodel.koinViewModel
 
 @Composable
@@ -57,6 +58,7 @@ fun ReadyCoffeeScreen(
                         "Enjoy",
                 textAlign = TextAlign.Center,
                 style = TextStyle(
+                    fontFamily = urbanist,
                     fontSize = 22.sp,
                     fontWeight = FontWeight.Bold
                 ),
@@ -114,6 +116,7 @@ fun ReadyCoffeeScreen(
                         text = "Take Away",
                         color = Color(0xFF1F1F1F).copy(alpha = 0.7f),
                         style = TextStyle(
+                            fontFamily = urbanist,
                             fontSize = 14.sp,
                             fontWeight = FontWeight.Bold
                         ),

@@ -26,6 +26,8 @@ import androidx.compose.ui.unit.sp
 import com.caffeine.R
 import com.caffeine.presentation.components.AnimatedWaveProgressBar
 import com.caffeine.ui.theme.brawn
+import com.caffeine.ui.theme.sniglet
+import com.caffeine.ui.theme.urbanist
 import kotlinx.coroutines.delay
 import org.koin.compose.viewmodel.koinViewModel
 
@@ -66,7 +68,11 @@ fun DeliverCoffeeScreen(
             Text(
                 text = "150 ML",
                 color = Color(0xFF000000).copy(alpha = 0.6f),
-                fontSize = 14.sp,
+                style = TextStyle(
+                    fontFamily = urbanist,
+                    fontSize = 14.sp,
+                    fontWeight = FontWeight.Medium,
+                ),
                 fontWeight = FontWeight.Medium,
                 modifier = Modifier
                     .align(Alignment.TopStart)
@@ -91,6 +97,7 @@ fun DeliverCoffeeScreen(
                 Text(
                     text = "Almost Done",
                     style = TextStyle(
+                        fontFamily = urbanist,
                         fontSize = 22.sp,
                         fontWeight = FontWeight.Bold,
                     )
@@ -99,6 +106,7 @@ fun DeliverCoffeeScreen(
                     text = "Your coffee will be finish in",
                     color = Color(0xFF1F1F1F).copy(alpha = 0.6f),
                     style = TextStyle(
+                        fontFamily = urbanist,
                         fontSize = 16.sp,
                         fontWeight = FontWeight.Bold,
                     )
@@ -112,8 +120,9 @@ fun DeliverCoffeeScreen(
                         text = "FF",
                         color = brawn,
                         style = TextStyle(
+                            fontFamily = sniglet,
                             fontSize = 32.sp,
-                            fontWeight = FontWeight.Bold,
+                            fontWeight = FontWeight.ExtraBold,
                         )
                     )
                     Image(
@@ -127,8 +136,9 @@ fun DeliverCoffeeScreen(
                         text = "CO",
                         color = brawn,
                         style = TextStyle(
+                            fontFamily = sniglet,
                             fontSize = 32.sp,
-                            fontWeight = FontWeight.Bold,
+                            fontWeight = FontWeight.ExtraBold,
                         )
                     )
                     Image(
@@ -142,8 +152,9 @@ fun DeliverCoffeeScreen(
                         text = "EE",
                         color = brawn,
                         style = TextStyle(
+                            fontFamily = sniglet,
                             fontSize = 32.sp,
-                            fontWeight = FontWeight.Bold,
+                            fontWeight = FontWeight.ExtraBold,
                         )
                     )
                 }

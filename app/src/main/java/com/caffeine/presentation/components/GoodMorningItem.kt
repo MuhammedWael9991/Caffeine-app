@@ -14,6 +14,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.sp
 import com.caffeine.R
+import com.caffeine.ui.theme.urbanist
 
 @Composable
 fun GoodMorningItem(
@@ -28,6 +29,7 @@ fun GoodMorningItem(
             text = "Good Morning",
             color = Color(0xFFB3B3B3),
             style = TextStyle(
+                fontFamily = urbanist,
                 fontSize = 36.sp,
                 fontWeight = FontWeight.Bold
             )
@@ -37,6 +39,7 @@ fun GoodMorningItem(
             text = "$name ☀",
             color = Color(0xFF3B3B3B),
             style = TextStyle(
+                fontFamily = urbanist,
                 fontSize = 36.sp,
                 fontWeight = FontWeight.Bold
             )
@@ -46,6 +49,7 @@ fun GoodMorningItem(
             text = "What would you like to drink today?",
             color = Color(0xFF1F1F1F).copy(alpha = 0.8f),
             style = TextStyle(
+                fontFamily = urbanist,
                 fontSize = 16.sp,
                 fontWeight = FontWeight.Bold
             )

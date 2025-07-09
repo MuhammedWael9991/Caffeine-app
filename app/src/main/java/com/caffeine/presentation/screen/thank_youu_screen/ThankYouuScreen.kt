@@ -25,6 +25,8 @@ import com.caffeine.R
 import com.caffeine.presentation.components.CaffeineButton
 import com.caffeine.presentation.components.CaffeineCircleShape
 import com.caffeine.ui.theme.brawn
+import com.caffeine.ui.theme.sniglet
+import com.caffeine.ui.theme.urbanist
 import org.koin.compose.viewmodel.koinViewModel
 
 @Composable
@@ -55,6 +57,7 @@ fun ThankYouuScreen(
             Text(
                 text = "More Espresso, Less Depresso",
                 style = TextStyle(
+                    fontFamily = sniglet,
                     fontSize = 20.sp,
                     fontWeight = FontWeight.Normal
                 ),
@@ -80,6 +83,7 @@ fun ThankYouuScreen(
                 text = "Bon appétit",
                 color = Color(0xFF1F1F1F).copy(alpha = 0.8f),
                 style = TextStyle(
+                    fontFamily = urbanist,
                     fontSize = 22.sp,
                     fontWeight = FontWeight.Bold
                 )

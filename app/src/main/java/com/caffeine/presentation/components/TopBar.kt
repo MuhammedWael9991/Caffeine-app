@@ -16,6 +16,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.caffeine.R
+import com.caffeine.ui.theme.urbanist
 
 @Composable
 fun TopBar(
@@ -28,11 +29,12 @@ fun TopBar(
             .fillMaxWidth()
             .height(48.dp)
     ){
-        CaffeineCircleShape(icon = R.drawable.ic_back)
+        CaffeineCircleShape(icon = R.drawable.ic_back , onClick = onClickBack)
         Text(
             text = title,
             color = Color(0xFF1F1F1F),
             style = TextStyle(
+                fontFamily = urbanist,
                 fontSize = 24.sp,
                 fontWeight = FontWeight.Bold
             ),

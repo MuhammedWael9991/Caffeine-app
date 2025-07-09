@@ -23,6 +23,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.caffeine.R
 import com.caffeine.ui.theme.black
+import com.caffeine.ui.theme.urbanist
 import com.caffeine.ui.theme.white
 
 @Composable
@@ -46,6 +47,7 @@ fun CaffeineButton(
                 text = title,
                 color = white,
                 style = TextStyle(
+                    fontFamily = urbanist,
                     fontSize = 16.sp,
                     fontWeight = FontWeight.Bold
                 ),

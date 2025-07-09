@@ -29,9 +29,11 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.caffeine.ui.theme.urbanist
 import com.caffeine.ui.theme.white
 import kotlinx.coroutines.delay
 
@@ -72,7 +74,11 @@ fun SizeSwitch(
                 Text(
                     text = size.label,
                     color = Color(0xFF1F1F1F).copy(alpha = 0.6f),
-                    style = TextStyle(fontSize = 20.sp),
+                    style = TextStyle(
+                        fontFamily = urbanist,
+                        fontWeight = FontWeight.Bold,
+                        fontSize = 20.sp
+                    ),
                     modifier = Modifier.clickable {
                         if (size != selected) {
                             visible = false

@@ -27,6 +27,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.caffeine.R
+import com.caffeine.ui.theme.sniglet
+import com.caffeine.ui.theme.urbanist
 
 @Composable
 fun WelcomeText(
@@ -78,6 +80,7 @@ fun WelcomeText(
             ,
             textAlign = TextAlign.Center,
             style = TextStyle(
+                fontFamily = sniglet,
                 fontSize = 32.sp,
                 fontWeight = FontWeight.Normal,
             ),

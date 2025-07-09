@@ -38,6 +38,7 @@ import com.caffeine.presentation.components.CaffeineSwitch
 import com.caffeine.presentation.components.CupSize
 import com.caffeine.presentation.components.SizeSwitch
 import com.caffeine.presentation.components.TopBar
+import com.caffeine.ui.theme.urbanist
 import kotlinx.coroutines.delay
 import org.koin.compose.koinInject
 import org.koin.compose.viewmodel.koinViewModel
@@ -145,17 +146,17 @@ fun CoffeeDetailsScreen(
             Text(
                 text = ml,
                 color = Color(0xFF000000).copy(alpha = 0.6f),
-                fontSize = 14.sp,
-                fontWeight = FontWeight.Medium,
+                style = TextStyle(
+                    fontFamily = urbanist,
+                    fontSize = 14.sp,
+                    fontWeight = FontWeight.Medium,
+                ),
+
                 modifier = Modifier
                     .align(Alignment.TopStart)
                     .padding(top = 64.dp, start = 16.dp)
             )
 
-
-//            for (i in 0 until beanCount.value) {
-//                AnimatedCoffeeBean(index = i)
-//            }
         }
 
         SizeSwitch(
@@ -185,41 +186,7 @@ fun CoffeeDetailsScreen(
         )
     }
 }
-//
-//@Composable
-//fun AnimatedCoffeeBean(index: Int, reversed: Boolean = false) {
-//    val startYOffset = if (reversed) 80.dp else -200.dp
-//    val endYOffset = if (reversed) -200.dp else 80.dp
-//
-//    var isVisible by remember { mutableStateOf(false) }
-//
-//    LaunchedEffect(Unit) {
-//        delay(300)
-//        isVisible = true
-//        delay(300)
-//        isVisible = false
-//    }
-//
-//    val yOffset by animateDpAsState(
-//        targetValue = if (isVisible) endYOffset else startYOffset,
-//        animationSpec = tween(600),
-//        label = "beanYOffset"
-//    )
-//
-//    val alpha by animateFloatAsState(
-//        targetValue = if (isVisible) 1f else 0f,
-//        animationSpec = tween(600),
-//        label = "beanAlpha"
-//    )
-//
-//    Image(
-//        painter = painterResource(id = R.drawable.ic_coffee_beans),
-//        contentDescription = "Bean",
-//        modifier = Modifier
-//            .offset(x = 50.dp, y = yOffset)
-//            .graphicsLayer { this.alpha = alpha }
-//    )
-//}
+
 
 
 

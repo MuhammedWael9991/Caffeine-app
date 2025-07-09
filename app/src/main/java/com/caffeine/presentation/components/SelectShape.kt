@@ -19,12 +19,14 @@ import androidx.compose.ui.graphics.nativeCanvas
 import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.caffeine.R
 import com.caffeine.ui.theme.brawn
+import com.caffeine.ui.theme.urbanist
 import com.caffeine.ui.theme.white
 
 @Composable
@@ -71,6 +73,8 @@ fun SelectShape(
                 text = text,
                 color = white,
                 style = TextStyle(
+                    fontFamily = urbanist,
+                    fontWeight = FontWeight.Bold,
                     fontSize = 20.sp
                 ),
                 modifier = Modifier.align(Alignment.Center)

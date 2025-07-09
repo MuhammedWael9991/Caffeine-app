@@ -30,6 +30,7 @@ import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.caffeine.R
 import com.caffeine.presentation.components.CaffeineCircleShape
+import com.caffeine.ui.theme.urbanist
 import org.koin.compose.viewmodel.koinViewModel
 import kotlin.math.abs
 
@@ -52,6 +53,7 @@ fun SnakScreen(
             text = "Take your snack",
             textAlign = TextAlign.Center,
             style = TextStyle(
+                fontFamily = urbanist,
                 fontSize = 22.sp,
                 fontWeight = FontWeight.Bold
             ),
