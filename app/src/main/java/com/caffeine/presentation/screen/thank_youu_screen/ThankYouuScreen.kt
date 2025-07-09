@@ -56,6 +56,7 @@ fun ThankYouuScreen(
             )
             Text(
                 text = "More Espresso, Less Depresso",
+                color = brawn,
                 style = TextStyle(
                     fontFamily = sniglet,
                     fontSize = 20.sp,
